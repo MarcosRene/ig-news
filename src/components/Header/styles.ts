@@ -17,8 +17,12 @@ export const Container = styled.div`
       align-items: center;
 
       > nav {
-        width: 100%;
+        height: 100%;
         margin-left: 5rem;
+      }
+
+      > button {
+        margin-left: auto;
       }
     }
   `}
