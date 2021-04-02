@@ -1,4 +1,4 @@
-import { MetaTags } from '../components';
+import { MetaTags, SubscribeButton } from '../components';
 import { Container, Section } from '../../styles/home';
 
 export default function Home() {
@@ -17,6 +17,8 @@ export default function Home() {
           <p>
             Get access to all the articles <strong>for U$9.90/month</strong>
           </p>
+
+          <SubscribeButton />
         </Section>
 
         <img src="/images/avatar.svg" alt="Girl Coding" />

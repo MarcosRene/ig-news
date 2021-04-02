@@ -33,6 +33,7 @@ export const Section = styled.section`
     }
 
     > p {
+      margin-bottom: 2.5rem;
       font-weight: 400;
 
       > strong {
