@@ -50,7 +50,7 @@ export default createGlobalStyle`
     body,
     input,
     button {
-      font: 1.6rem 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      font: 1rem 'Roboto Slab', -apple-system, BlinkMacSystemFont, 'Segoe UI',
         Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
         'Segoe UI Emoji', 'Segoe UI Symbol';
       line-height: 1.48;
