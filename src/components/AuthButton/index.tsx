@@ -1,22 +1,28 @@
-import { useState } from 'react';
+import { signIn, signOut, useSession } from 'next-auth/client';
 
-import { GoMarkGithub, GoX } from 'react-icons/go';
 import { useTheme } from 'styled-components';
+import { GoMarkGithub, GoX } from 'react-icons/go';
 
-import { Container } from './styles';
+import * as S from './styles';
+
+const handleSignIn = () => signIn('github');
+const handleSignOut = () => signOut();
 
 export const AuthButton = () => {
   const theme = useTheme();
 
-  const [isLoggedIn] = useState(false);
+  const [session] = useSession();
 
-  const githubIconColor = theme.colors[isLoggedIn ? 'green' : 'yellow'];
+  const handleAuth = session ? handleSignOut : handleSignIn;
+
+  const githubIconColor = theme.colors[session ? 'green' : 'yellow'];
 
   return (
-    <Container type="button">
+    <S.Container type="button" onClick={handleAuth}>
       <GoMarkGithub color={githubIconColor} size="1.25rem" />
-      <span>Sign in with Github</span>
-      {isLoggedIn && <GoX color={theme.colors.detailLight} size="1.25rem" />}
-    </Container>
+      <span>{session?.user?.name ?? 'Sign in with GitHub'}</span>
+
+      {session && <GoX color={theme.colors.detailLight} size="1.25rem" />}
+    </S.Container>
   );
 };
