@@ -4,6 +4,7 @@ import Providers from 'next-auth/providers';
 import { query as q } from 'faunadb';
 
 import { fauna } from '../../../services';
+import { getUserByEmail } from '../utils';
 
 export default NextAuth({
   providers: [
@@ -18,13 +19,9 @@ export default NextAuth({
       try {
         await fauna.query(
           q.If(
-            q.Not(
-              q.Exists(
-                q.Match(q.Index('user_by_email'), q.Casefold(user.email)),
-              ),
-            ),
+            q.Not(q.Exists(getUserByEmail(user.email))),
             q.Create(q.Collection('users'), { data: { email: user.email } }),
-            q.Get(q.Match(q.Index('user_by_email'), q.Collection(user.email))),
+            q.Get(getUserByEmail(user.email)),
           ),
         );
 

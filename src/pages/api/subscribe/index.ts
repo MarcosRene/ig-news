@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/client';
 import { query as q } from 'faunadb';
 
 import { fauna, stripe } from '../../../services';
+import { getUserByEmail } from '../utils';
 
 type Faunadb = {
   ref: {
@@ -25,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getSession({ req });
 
   const user = await fauna.query<Faunadb>(
-    q.Get(q.Match(q.Index('user_by_email'), q.Collection(session.user.email))),
+    q.Get(getUserByEmail(session.user.email)),
   );
 
   let stripeCostumerId = user.data.stripe_custom_id;
