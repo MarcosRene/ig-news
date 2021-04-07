@@ -1,14 +1,21 @@
-import { useSession, signIn } from 'next-auth/client';
+import { signIn, useSession } from 'next-auth/client';
+import { useRouter } from 'next/dist/client/router';
 
 import { api, getStripeClient } from '../../services';
 import { Container } from './styles';
 
 export const SubscribeButton = () => {
   const [session] = useSession();
+  const router = useRouter();
 
   const handleSubscribe = async () => {
     if (!session) {
       signIn('github');
+    }
+
+    if (session?.activeSubscription) {
+      router.push('/posts');
+      return;
     }
 
     try {
@@ -20,7 +27,7 @@ export const SubscribeButton = () => {
 
       await stripe.redirectToCheckout({ sessionId });
     } catch (err) {
-      console.log(err);
+      alert(err.message);
     }
   };
 
@@ -30,3 +37,6 @@ export const SubscribeButton = () => {
     </Container>
   );
 };
+function alert(message: any) {
+  throw new Error('Function not implemented.');
+}

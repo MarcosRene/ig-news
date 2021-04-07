@@ -1,5 +1,8 @@
+import React from 'react';
+
+import { ActiveLink } from '../ActiveLink';
 import { AuthButton } from '../AuthButton';
-import { Container, NavLink } from './styles';
+import { Container } from './styles';
 
 export const Header = () => (
   <Container>
@@ -7,12 +10,8 @@ export const Header = () => (
       <img src="/images/logo.svg" alt="ig.news" />
 
       <nav>
-        <NavLink active href="/">
-          Home
-        </NavLink>
-        <NavLink active={false} href="/posts">
-          Posts
-        </NavLink>
+        <ActiveLink href="/">Home</ActiveLink>
+        <ActiveLink href="/posts">Posts</ActiveLink>
       </nav>
 
       <AuthButton />
